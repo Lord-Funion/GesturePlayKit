@@ -89,3 +89,15 @@ Hand IDs are temporary, not biometric identifiers.
 ## Screenshots and recordings
 
 GesturePlayKit returns regular OpenCV frames, so you can save a snapshot with `cv2.imwrite("screenshot.png", frame)` or build a video writer yourself. Respect webcam privacy when recording other people.
+
+## Hide or show every picture overlay
+
+```python
+from gestureplaykit import hide_all_pictures, show_all_pictures, toggle_pictures
+
+hide_all_pictures()  # disable overlays from show_picture()
+show_all_pictures()  # enable them again
+# or call toggle_pictures() from a key press or gesture event
+```
+
+Only picture overlays are hidden. Text, geometry and landmarks still draw; webcam frames are unaffected. In each camera-loop iteration, read a new frame before drawing overlays. See `examples/10_toggle_pictures.py`.
