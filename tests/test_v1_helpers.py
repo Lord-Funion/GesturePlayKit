@@ -32,7 +32,7 @@ def make_hand():
 
 
 def test_version_and_geometry():
-    assert __version__ == "1.2.0"
+    assert __version__ == "1.3.0"
     assert distance((0, 0), (3, 4)) == 5
     assert clamp(8, 0, 5) == 5
     assert clamp(-1, 0, 5) == 0
