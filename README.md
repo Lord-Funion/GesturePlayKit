@@ -1,10 +1,10 @@
-# GesturePlayKit 1.1.0 🖐️👄🕺
+# GesturePlayKit 1.2.0 🖐️👄🕺
 
 **Make webcam games, interactive art, virtual props, motion controls, and experimental AR using simple Python functions.**
 
 GesturePlayKit wraps Google's MediaPipe Tasks: **21 hand landmarks**, **478 face landmarks**, **52 optional face-expression blendshapes**, and **33 optional body-pose landmarks**. You write your own rules, UI, achievements, art, and gameplay. Hand, mouth, eye, and body detections are approximations, **not guaranteed physical contact or medical measurements**.
 
-> **Release:** Source code for v1.1.0. A GitHub push does not automatically upload to PyPI; see [publishing instructions](PUBLISH_TO_PYPI.md).
+> **Release:** Source code for v1.2.0. A GitHub push does not automatically upload to PyPI; see [publishing instructions](PUBLISH_TO_PYPI.md).
 
 ## Getting started
 
@@ -58,9 +58,20 @@ with Camera() as camera, Vision(hands=False, faces=False, poses=True) as vision:
 - Hand gestures: pinch hold/start/end/double, fingertip contact, open palm, fist, peace sign, pointing, finger count, palm position, estimated handedness, multiple-hand IDs, and approximate world coordinates.
 - Face: mouth open/close events and position, eye positions, mouth width/height, blink events, smile, wink, brow/jaw and 52 other optional expression scores, 478 landmarks, and optional transformation matrix.
 - Body: 33 pose landmarks, shoulders/hips centers, raised arms, elbow/knee angles, point visibility, and skeleton drawing.
-- Image/overlay: local or HTTP(S) PNG/JPG, alpha blending, opacity, resizing, cropping to frame, text, points, lines and rectangles.
+- Image/overlay: local or HTTP(S) PNG/JPG, alpha blending, opacity, resizing, cropping to frame, text, points, lines and rectangles. One-command picture visibility toggle (`hide_all_pictures()`, `show_all_pictures()`, `toggle_pictures()`).
 - Offline once models and any remote images have been downloaded; no camera data is uploaded by this library.
 - Model downloader (`python -m gestureplaykit download-models`) and tested Python-first API.
+
+## Hide all pictures with one command
+
+```python
+from gestureplaykit import show_picture, hide_all_pictures, show_all_pictures
+
+hide_all_pictures()  # Every future show_picture() call draws nothing.
+show_all_pictures()  # Display picture overlays again.
+```
+
+`toggle_pictures()` flips the current setting; `pictures_visible()` returns `True` or `False`. This switch affects picture overlays drawn with `show_picture()` **only**. It does not blank the webcam, remove text or landmarks, or erase images already drawn on an existing frame. In a normal camera loop, the next fresh frame will be clear. See [example 10](examples/10_toggle_pictures.py).
 
 ## Complete documentation
 
