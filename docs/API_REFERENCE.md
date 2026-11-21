@@ -1,6 +1,6 @@
-# GesturePlayKit 1.2.0 — Complete API reference
+# GesturePlayKit 1.3.0 — Complete API reference
 
-**This is the complete documented public surface for v1.2.0.** Examples use OpenCV BGR pixel coordinates `(x, y)` and BGR colors `(blue, green, red)` unless noted.
+**This is the complete documented public surface for v1.3.0.** Examples use OpenCV BGR pixel coordinates `(x, y)` and BGR colors `(blue, green, red)` unless noted.
 
 ## Install / models / version
 
@@ -28,7 +28,7 @@ Returns the path of the optional `pose_landmarker_lite.task` file.
 
 ### `gestureplaykit.__version__`
 
-The package version string, currently `1.2.0`.
+The package version string, currently `1.3.0`.
 
 ## Camera class
 
@@ -177,6 +177,50 @@ Popular blendshapes include `eyeBlinkLeft`, `eyeBlinkRight`, `jawOpen`, `mouthSm
 | `draw_pose(...)` | Draw body pose skeleton (see above) |
 
 All rendering functions **modify `frame` in place** and return it for chaining. Picture visibility affects `show_picture` only: text, lines, and landmark drawing are unchanged. The setting is process-wide; toggling it cannot erase picture pixels already drawn into an existing frame, but newly captured frames have no previous overlays. Hidden `show_picture` calls skip loading path/URL images. `load_picture()` caches decoded images and returns a copy. Avoid downloading inside the frame loop. Remote image URL requests require internet, even if the tracking models were downloaded for offline operation.
+
+## Sound effects (new in v1.3.0)
+
+Sound functions are module-level: import them from `gestureplaykit`. By default,
+short effects play asynchronously without pausing your camera loop.
+
+| Function | Behavior |
+|---|---|
+| `play_sound(path, *, volume=1.0, loop=False)` | Play local audio file, returns `True` on success, `False` while muted/silent. Valid volume range 0..1. File must exist. WAV supported by Windows builtin; pygame supports other formats. |
+| `play_effect(name="pop", *, volume=1.0)` | Play a generated short sound: `pop`, `chomp`, `success`, `error` (original PCM WAV, synthesized on demand); returns `True`/`False`. |
+| `available_effects()` | Return `("pop", "chomp", "success", "error")`. |
+| `mute_sounds()` | Disable future playback and stop current sounds. |
+| `unmute_sounds()` | Enable sound effects again. |
+| `toggle_sounds()` | Toggle global enabled state; return new Boolean state. |
+| `sounds_enabled()` | Return current global Boolean enabled state (default `True`). |
+| `set_sounds_enabled(True/False)` | Set global enabled state; TypeError for other arguments. |
+| `stop_sounds()` | Stop current effects without changing enabled state. |
+
+**Windows fallback:** Standard `.wav` files require no extra audio dependency.
+When Pygame isn't installed, `winsound` plays only **one sound at a time**, in
+full volume; playing another replaces the current sound. `loop=True` repeats
+until stopped. On Windows, `volume` other than 1.0 (except 0 for silence)
+requires the optional Pygame backend.
+
+**Optional audio extra:** Install `pygame>=2.6` via `pip install "gestureplaykit[audio]"`
+(or `pip install ".[audio]"` from a checkout). This supports Linux/macOS,
+volume, multiple simultaneous effects, MP3/OGG support according to your
+Pygame/SDL build. A working audio device is required; none is opened during
+library import. `play_effect` synthesizes small temporary WAV files on demand;
+this works offline and does not download sound assets.
+
+`play_sound` raises `FileNotFoundError` for missing audio and `RuntimeError`
+if no backend is available. Playback may fail if your speakers/device cannot
+open. Muted calls return `False` without opening sound files. In an app,
+trigger playback on **events** such as `hand.pinch_started`, not on continuous
+states such as `hand.pinching`, or you'll replay a sound every frame.
+
+```python
+from gestureplaykit import play_sound, play_effect, toggle_sounds
+if vision.hand and vision.hand.pinch_started:
+    play_effect("pop")
+if vision.face and vision.face.mouth_just_closed:
+    play_effect("chomp")
+```
 
 ## Geometry helpers
 
