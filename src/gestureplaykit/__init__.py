@@ -9,16 +9,18 @@ from .vision import Vision, Hand, Face
 from .pose import Pose, draw_pose
 from .pictures import (
     load_picture, resize_picture, show_picture, show_text, show_point,
-    show_line, show_rectangle, draw_hand,
+    show_line, show_rectangle, draw_hand, hide_all_pictures, show_all_pictures,
+    set_pictures_visible, pictures_visible, toggle_pictures,
 )
 from .geometry import distance, clamp, inside_rectangle
 from .models import download_models, model_paths, pose_model_path
 
-__version__ = "1.1.0"
+__version__ = "1.2.0"
 
 __all__ = [
     "Camera", "Vision", "Hand", "Face", "Pose", "draw_pose", "load_picture", "resize_picture",
     "show_picture", "show_text", "show_point", "show_line", "show_rectangle",
-    "draw_hand", "distance", "clamp", "inside_rectangle", "download_models",
+    "hide_all_pictures", "show_all_pictures", "set_pictures_visible",
+    "pictures_visible", "toggle_pictures", "draw_hand", "distance", "clamp", "inside_rectangle", "download_models",
     "model_paths", "pose_model_path", "__version__",
 ]
