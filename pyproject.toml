@@ -1,0 +1,41 @@
+[build-system]
+requires = ["setuptools>=77", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "gestureplaykit"
+version = "1.1.0"
+description = "Friendly Python webcam, gesture tracking, face expressions, body pose, gestures, and AR overlays"
+readme = "README.md"
+requires-python = ">=3.10"
+license = "MIT"
+license-files = ["LICENSE"]
+authors = [{name = "GesturePlayKit contributors"}]
+keywords = ["gestures", "webcam", "hand tracking", "mediapipe", "AR", "computer vision", "pose tracking", "face landmarks"]
+classifiers = [
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3 :: Only",
+  "Operating System :: OS Independent",
+  "Intended Audience :: Developers",
+  "Topic :: Multimedia :: Graphics",
+]
+dependencies = [
+  "mediapipe>=0.10.20",
+  "numpy>=1.26,<3",
+  "opencv-contrib-python>=4.8,<5",
+]
+
+[project.optional-dependencies]
+test = ["pytest>=8"]
+
+[project.scripts]
+gestureplaykit = "gestureplaykit.__main__:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+gestureplaykit = ["py.typed", "AI_ATTRIBUTION.md"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

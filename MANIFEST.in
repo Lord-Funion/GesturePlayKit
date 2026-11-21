@@ -1,0 +1,9 @@
+include LICENSE README.md AI_ATTRIBUTION.md CHANGELOG.md UPGRADING.md CONTRIBUTING.md PUBLISH_TO_PYPI.md
+recursive-include docs *.md
+recursive-include examples *.py *.png
+recursive-include tests *.py
+recursive-include src/gestureplaykit *.md py.typed
+prune .pytest_cache
+prune .venv
+prune build
+prune dist

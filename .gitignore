@@ -1,0 +1,13 @@
+__pycache__/
+*.pyc
+.pytest_cache/
+*.egg-info/
+.venv/
+venv/
+.env
+*.task
+models/
+dist/
+build/
+*.whl
+*.tar.gz
