@@ -10,7 +10,7 @@ py -m gestureplaykit download-models --poses
 py -m gestureplaykit --version
 ```
 
-Expected version: `GesturePlayKit 1.1.0`. If your OS cannot install a compatible MediaPipe wheel, try a supported Python version in an isolated virtual environment. Do not downgrade packages blindly.
+Expected version: `GesturePlayKit 1.2.0`. If your OS cannot install a compatible MediaPipe wheel, try a supported Python version in an isolated virtual environment. Do not downgrade packages blindly.
 
 You may omit `--poses` if you only use hands and face. The downloaded `models/` directory is relative to your working directory. For scripts run from another directory, supply `Vision(models_dir=r"C:\myproject\models")`.
 
