@@ -4,7 +4,7 @@
 
 GesturePlayKit wraps Google's MediaPipe Tasks: **21 hand landmarks**, **478 face landmarks**, **52 optional face-expression blendshapes**, and **33 optional body-pose landmarks**. You write your own rules, UI, achievements, art, and gameplay. Hand, mouth, eye, and body detections are approximations, **not guaranteed physical contact or medical measurements**.
 
-> **Release**: Source code for v1.1.0. A GitHub push does not automatically upload to PyPI. Check PyPI separately. This project was developed with substantial AI assistance; see [AI_ATTRIBUTION.md](AI_ATTRIBUTION.md).
+> **Release:** Source code for v1.1.0. A GitHub push does not automatically upload to PyPI; see [publishing instructions](PUBLISH_TO_PYPI.md).
 
 ## Getting started
 
@@ -69,7 +69,7 @@ with Camera() as camera, Vision(hands=False, faces=False, poses=True) as vision:
 - **[Landmarks](docs/LANDMARKS.md)** — hand, mouth, eye, and pose numbering
 - **[Recipes](docs/RECIPES.md)** — pinch effects, eye blinks, virtual eating, joint angles
 - **[Troubleshooting](docs/TROUBLESHOOTING.md)** — installation, PATH, lighting, offline use
-- **[Changelog](CHANGELOG.md)** and **[AI attribution](AI_ATTRIBUTION.md)**
+- **[Changelog](CHANGELOG.md)** and **[Development attribution](AI_ATTRIBUTION.md)**
 
 ## Important limitations
 
@@ -77,4 +77,4 @@ Camera and model accuracy depend on lighting, occlusion, frame rate, and angles.
 
 ## Credits and licenses
 
-GesturePlayKit uses [MediaPipe](https://developers.google.com/edge/mediapipe/solutions/vision/face_landmarker), OpenCV and NumPy. MediaPipe models have their own terms. See LICENSE (MIT) for the GesturePlayKit source and AI_ATTRIBUTION.md for authorship details. Do not treat publishing or using this library as a way to conceal AI use in a competition.
+GesturePlayKit uses [MediaPipe](https://developers.google.com/edge/mediapipe/solutions/vision/face_landmarker), OpenCV and NumPy. MediaPipe models have their own terms. See [LICENSE](LICENSE) (MIT) for the GesturePlayKit source and [Development attribution](AI_ATTRIBUTION.md) for its development history.
