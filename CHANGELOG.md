@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.3.0 — Built-in sound effects
+
+- Add nonblocking `play_sound(...)` for custom WAV files and optional Pygame for cross-platform playback, volume, and overlap.
+- Add original generated `play_effect("pop" | "chomp" | "success" | "error")` sounds, usable offline without media downloads.
+- Add global sound controls `mute_sounds()`, `unmute_sounds()`, `toggle_sounds()`, `sounds_enabled()`, `set_sounds_enabled()` and `stop_sounds()`.
+- Add an audio example and unit tests. Previous tracking and picture functions are unchanged.
+
 ## 1.2.0 — Easy overlay visibility
 
 - Add `hide_all_pictures()`, `show_all_pictures()`, `toggle_pictures()`, `pictures_visible()`, and `set_pictures_visible()`.
