@@ -1,6 +1,6 @@
-# GesturePlayKit 1.1.0 — Complete API reference
+# GesturePlayKit 1.2.0 — Complete API reference
 
-**This is the complete documented public surface for v1.1.0.** Examples use OpenCV BGR pixel coordinates `(x, y)` and BGR colors `(blue, green, red)` unless noted.
+**This is the complete documented public surface for v1.2.0.** Examples use OpenCV BGR pixel coordinates `(x, y)` and BGR colors `(blue, green, red)` unless noted.
 
 ## Install / models / version
 
@@ -28,7 +28,7 @@ Returns the path of the optional `pose_landmarker_lite.task` file.
 
 ### `gestureplaykit.__version__`
 
-The package version string, currently `1.1.0`.
+The package version string, currently `1.2.0`.
 
 ## Camera class
 
@@ -163,6 +163,11 @@ Popular blendshapes include `eyeBlinkLeft`, `eyeBlinkRight`, `jawOpen`, `mouthSm
 |---|---|
 | `load_picture(source, size=None)` | Read image from local path or direct HTTP(S) PNG/JPG URL. PNG alpha retained. |
 | `resize_picture(picture, size)` | Resize existing BGR/BGRA image. `size=(width,height)` |
+| `hide_all_pictures()` | Disable subsequent picture overlays across this Python process |
+| `show_all_pictures()` | Re-enable picture overlays |
+| `toggle_pictures()` | Flip picture visibility; return new Boolean visibility |
+| `pictures_visible()` | Return whether picture overlays are currently visible (default `True`) |
+| `set_pictures_visible(True or False)` | Explicitly set picture visibility; `TypeError` for non-Boolean values |
 | `show_picture(frame, picture, at=(x,y), size=None, opacity=1.0)` | Centered image overlay, clipping at edges, alpha-aware, opacity 0..1 |
 | `show_text(frame, text, at=(15,35), color=(255,255,255), scale=0.7, thickness=2)` | Draw text at pixel location |
 | `show_point(frame, at, color=(0,255,255), radius=7)` | Filled circular dot |
@@ -171,7 +176,7 @@ Popular blendshapes include `eyeBlinkLeft`, `eyeBlinkRight`, `jawOpen`, `mouthSm
 | `draw_hand(frame, hand, color=(0,255,255), number_landmarks=False, radius=4)` | Draw hand skeleton and optional numbers |
 | `draw_pose(...)` | Draw body pose skeleton (see above) |
 
-All rendering functions **modify `frame` in place** and return it for chaining. `load_picture()` caches decoded images and returns a copy. Avoid downloading inside the frame loop. Remote image URL requests require internet, even if the tracking models were downloaded for offline operation.
+All rendering functions **modify `frame` in place** and return it for chaining. Picture visibility affects `show_picture` only: text, lines, and landmark drawing are unchanged. The setting is process-wide; toggling it cannot erase picture pixels already drawn into an existing frame, but newly captured frames have no previous overlays. Hidden `show_picture` calls skip loading path/URL images. `load_picture()` caches decoded images and returns a copy. Avoid downloading inside the frame loop. Remote image URL requests require internet, even if the tracking models were downloaded for offline operation.
 
 ## Geometry helpers
 
@@ -192,4 +197,4 @@ All public v1.0.0 names remain importable. Default `Vision()` still tracks hands
 - Frame processing may become slow if hands, face, and pose detectors all run together on weak CPUs.
 - Python version support also depends on available MediaPipe wheels (not guaranteed for every interpreter).
 - Google models are separate downloads and have their own licensing terms.
-- This library was built with substantial AI assistance (see [AI_ATTRIBUTION.md](../AI_ATTRIBUTION.md)).
+- For the library's development history and attribution, see [AI_ATTRIBUTION.md](../AI_ATTRIBUTION.md).
