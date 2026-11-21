@@ -1,4 +1,14 @@
-# Upgrading to GesturePlayKit 1.2.0
+# Upgrading to GesturePlayKit 1.3.0
+
+Version 1.3.0 adds optional sound effects; all v1.2.0 tracking, picture, camera,
+and geometry functions remain compatible. Use `play_effect("pop")` for a short
+built-in effect or `play_sound("mysound.wav")` for a custom file. WAV effects
+work on Windows with no extra dependency. For non-Windows systems, sound volume
+control or overlapping effects, install the optional `audio` extra with Pygame:
+`python -m pip install "gestureplaykit[audio]"` after publication, or
+`python -m pip install ".[audio]"` from source.
+
+## Changes introduced in 1.2.0
 
 Version 1.2.0 adds `hide_all_pictures()`, `show_all_pictures()`, `toggle_pictures()`, `pictures_visible()` and `set_pictures_visible(bool)`. These only affect future `show_picture()` calls, not text or webcam video. The default is visible, so existing code keeps working. The setting is process-wide.
 
