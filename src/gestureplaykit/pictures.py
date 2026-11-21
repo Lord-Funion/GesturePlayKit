@@ -96,18 +96,60 @@ def resize_picture(picture: np.ndarray, size) -> np.ndarray:
     return cv2.resize(picture, (width, height), interpolation=interpolation)
 
 
+# One process-wide display switch for picture overlays. Shape/text rendering is unaffected.
+# This controls future show_picture() calls; pixels already drawn cannot be undone.
+_PICTURES_VISIBLE = True
+
+
+def pictures_visible() -> bool:
+    """Return whether picture overlays are enabled (on by default)."""
+    return _PICTURES_VISIBLE
+
+
+def set_pictures_visible(visible: bool) -> None:
+    """Enable or disable overlays drawn by :func:`show_picture`.
+
+    This is a process-wide setting, intended for one game or display loop.
+    It does not hide webcam video, text, hand landmarks, or previously drawn
+    pixels on the same frame. Read a fresh frame to clear old overlays.
+    """
+    if not isinstance(visible, bool):
+        raise TypeError("visible must be True or False")
+    global _PICTURES_VISIBLE
+    _PICTURES_VISIBLE = visible
+
+
+def hide_all_pictures() -> None:
+    """Skip all future :func:`show_picture` overlays until re-enabled."""
+    set_pictures_visible(False)
+
+
+def show_all_pictures() -> None:
+    """Re-enable picture overlays (the default)."""
+    set_pictures_visible(True)
+
+
+def toggle_pictures() -> bool:
+    """Flip overlay visibility and return the new visible state."""
+    set_pictures_visible(not pictures_visible())
+    return pictures_visible()
+
+
 def show_picture(frame: np.ndarray, picture: np.ndarray | str | Path,
                  at, size=None, opacity: float = 1.0) -> np.ndarray:
     """Overlay a picture centered at pixel coordinate ``at=(x,y)``.
 
     Supports BGRA transparency, optional resizing and opacity (0..1). Clips
     safely when the picture overlaps the edge. Mutates and returns ``frame``.
+    If pictures are hidden, leaves ``frame`` unchanged without loading assets.
     """
     _image_ok(frame, "frame")
     if frame.shape[2] != 3:
         raise ValueError("frame must be a 3-channel BGR image")
     if not isinstance(opacity, (int, float)) or not math.isfinite(opacity) or not 0 <= opacity <= 1:
         raise ValueError("opacity must be a number from 0 to 1")
+    if not _PICTURES_VISIBLE:
+        return frame
     if isinstance(picture, (str, Path)):
         picture = load_picture(picture, size=size)
     elif size is not None:
