@@ -1,10 +1,10 @@
-# GesturePlayKit 1.2.0 🖐️👄🕺
+# GesturePlayKit 1.3.0 🖐️👄🕺
 
 **Make webcam games, interactive art, virtual props, motion controls, and experimental AR using simple Python functions.**
 
 GesturePlayKit wraps Google's MediaPipe Tasks: **21 hand landmarks**, **478 face landmarks**, **52 optional face-expression blendshapes**, and **33 optional body-pose landmarks**. You write your own rules, UI, achievements, art, and gameplay. Hand, mouth, eye, and body detections are approximations, **not guaranteed physical contact or medical measurements**.
 
-> **Release:** Source code for v1.2.0. A GitHub push does not automatically upload to PyPI; see [publishing instructions](PUBLISH_TO_PYPI.md).
+> **Release:** Source code for v1.3.0. A GitHub push does not automatically upload to PyPI; see [publishing instructions](PUBLISH_TO_PYPI.md).
 
 ## Getting started
 
@@ -60,6 +60,7 @@ with Camera() as camera, Vision(hands=False, faces=False, poses=True) as vision:
 - Body: 33 pose landmarks, shoulders/hips centers, raised arms, elbow/knee angles, point visibility, and skeleton drawing.
 - Image/overlay: local or HTTP(S) PNG/JPG, alpha blending, opacity, resizing, cropping to frame, text, points, lines and rectangles. One-command picture visibility toggle (`hide_all_pictures()`, `show_all_pictures()`, `toggle_pictures()`).
 - Offline once models and any remote images have been downloaded; no camera data is uploaded by this library.
+- Sound-effect toolkit: `play_sound("chomp.wav")`, original built-in `pop`/`chomp`/`success`/`error` effects, and global mute/toggle controls. Windows WAV works with Python alone; optional Pygame enables cross-platform sound and volume.
 - Model downloader (`python -m gestureplaykit download-models`) and tested Python-first API.
 
 ## Hide all pictures with one command
@@ -72,6 +73,41 @@ show_all_pictures()  # Display picture overlays again.
 ```
 
 `toggle_pictures()` flips the current setting; `pictures_visible()` returns `True` or `False`. This switch affects picture overlays drawn with `show_picture()` **only**. It does not blank the webcam, remove text or landmarks, or erase images already drawn on an existing frame. In a normal camera loop, the next fresh frame will be clear. See [example 10](examples/10_toggle_pictures.py).
+
+## Sound effects (new in v1.3.0)
+
+```python
+from gestureplaykit import play_sound, play_effect, mute_sounds, unmute_sounds
+
+play_effect("pop")           # built-in original sound, no WAV file needed
+play_sound("my-chomp.wav")   # your own sound file
+play_effect("chomp")         # built-in chomp
+mute_sounds()                # all new sounds stay muted
+unmute_sounds()
+```
+
+Also available: `toggle_sounds()`, `sounds_enabled()`, `stop_sounds()`,
+`set_sounds_enabled(True/False)`, and `available_effects()`.
+
+Sound playback **does not block your webcam loop**. On **Windows**, WAV
+files work with built-in `winsound` (one sound at a time, full volume).
+For overlapping sounds, volume adjustment, MP3/OGG, and Linux/macOS install:
+
+```bash
+python -m pip install ".[audio]"       # when inside a repository checkout
+# or: python -m pip install "gestureplaykit[audio]"   # after publishing on PyPI
+```
+
+With the optional Pygame backend:
+
+```python
+play_sound("my-chomp.wav", volume=0.5)
+play_effect("success", volume=0.7)
+```
+
+Missing sound files raise `FileNotFoundError`; unavailable audio backends raise
+an actionable `RuntimeError`. Mute/unmute affects future sound playback and
+muting stops sounds already playing. See [Audio example](examples/11_sound_effects.py).
 
 ## Complete documentation
 
