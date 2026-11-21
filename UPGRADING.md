@@ -6,4 +6,4 @@ New: `vision.pose`, `vision.poses`, `Pose`, `draw_pose`; extra Hand fields (`han
 
 Existing apps may see additional CPU usage from the now enabled-by-default Face Landmarker blendshapes. If not needed, set `Vision(face_blendshapes=False)`.
 
-Important: models remain separate downloads and Python package availability depends on the platform and interpreter. Publishing the library does not hide or change its AI-assisted origins; see `AI_ATTRIBUTION.md`.
+Important: models remain separate downloads and Python package availability depends on the platform and interpreter.
