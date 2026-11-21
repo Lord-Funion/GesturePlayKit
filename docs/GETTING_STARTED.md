@@ -10,7 +10,7 @@ py -m gestureplaykit download-models --poses
 py -m gestureplaykit --version
 ```
 
-Expected version: `GesturePlayKit 1.2.0`. If your OS cannot install a compatible MediaPipe wheel, try a supported Python version in an isolated virtual environment. Do not downgrade packages blindly.
+Expected version: `GesturePlayKit 1.3.0`. If your OS cannot install a compatible MediaPipe wheel, try a supported Python version in an isolated virtual environment. Do not downgrade packages blindly.
 
 You may omit `--poses` if you only use hands and face. The downloaded `models/` directory is relative to your working directory. For scripts run from another directory, supply `Vision(models_dir=r"C:\myproject\models")`.
 
@@ -56,3 +56,10 @@ After downloading models once, these detectors run locally and do not upload fra
 - `Vision(poses=True)` — hands + face + body (more CPU load)
 
 Use `Vision(max_hands=2, max_poses=1, face_blendshapes=True, face_transformations=False)` to tune tracking. A mirrored webcam can confuse left/right labels; check visually.
+
+## Adding sound effects
+
+Sound effects are independent from tracking, so you can use them with any game.
+Use `play_effect("pop")` in a `pinch_started` handler to avoid repeating it
+every camera frame. To play your own WAV file on Windows, use
+`play_sound("sounds/chomp.wav")`. See the [complete audio API](API_REFERENCE.md#sound-effects-new-in-v130).
