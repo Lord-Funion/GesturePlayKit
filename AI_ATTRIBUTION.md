@@ -1,7 +1,9 @@
-# AI development attribution
+# Development and attribution
 
-GesturePlayKit was developed with substantial OpenAI ChatGPT assistance for code architecture, implementation, tests, documentation and release preparation. Humans may subsequently contribute independently. This disclosure travels with the source distribution and should not be removed to conceal its provenance.
+GesturePlayKit is an open-source Python library developed with assistance from OpenAI ChatGPT. This included work on architecture, source-code implementation, tests, documentation, and release preparation.
 
-Publishing this library publicly does **not** automatically make AI-assisted code student-authored for academic competitions. Check the event's rules and accurately disclose use of this library and other AI assistance.
+GesturePlayKit is a reusable dependency, separate from the applications that import it. Using GesturePlayKit does not, by itself, mean that a developer's application was written by AI.
 
-Uses Google MediaPipe model APIs, NumPy and OpenCV. Their licenses and terms are independent from GesturePlayKit's MIT license.
+When using GesturePlayKit for coursework or competitions, credit the library and accurately describe any AI assistance on your own submission according to the applicable rules.
+
+GesturePlayKit uses MediaPipe, OpenCV, and NumPy; their licenses and terms are independent of GesturePlayKit's MIT license.
